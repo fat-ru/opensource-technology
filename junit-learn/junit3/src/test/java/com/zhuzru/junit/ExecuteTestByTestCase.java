@@ -1,7 +1,9 @@
 package com.zhuzru.junit;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class ExecuteTestByTestCase extends TestCase {
 
     @Override
     protected void setUp() {
-        list = Arrays.asList("Java", "C++", "Python");
+        list = new ArrayList<>(Arrays.asList("Java", "C++", "Python"));
         System.out.println("setUp!");
     }
 
@@ -32,6 +34,7 @@ public class ExecuteTestByTestCase extends TestCase {
 
     @Override
     protected void tearDown() {
+        Assert.assertEquals(3, list.size());
         System.out.println("tearDown!");
     }
 }
