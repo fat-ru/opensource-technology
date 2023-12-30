@@ -11,6 +11,7 @@ import org.junit.runners.model.Statement;
  * @Created by zhuzru
  */
 public class CustomRule implements TestRule {
+    // TODO: 自定义Rule
     @Override
     public Statement apply(Statement statement, Description description) {
         return null;
