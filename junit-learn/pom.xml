@@ -10,6 +10,7 @@
   <modules>
     <module>junit4</module>
     <module>junit3</module>
+      <module>junit5</module>
   </modules>
 
   <packaging>pom</packaging>
