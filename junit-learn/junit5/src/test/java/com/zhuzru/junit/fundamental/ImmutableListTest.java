@@ -3,6 +3,7 @@ package com.zhuzru.junit.fundamental;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,12 +32,27 @@ class ImmutableListTest {
 
     @DisplayName("[the list should contains 'JAVA']")
     @Test
-    public void listShouldContainsElement() {
+    void listShouldContainsElement() {
         // given
         final String element = "JAVA";
         // when
         boolean exist = list.contains(element);
         // then
         Assertions.assertTrue(exist);
+    }
+
+    @DisplayName("[the immutable list only support read operation]")
+    @Test
+    void immutableListCouldNotUpdate() {
+        // given
+        int index = 0;
+        String expected = "JAVA";
+        // when
+        Executable executable = () -> {
+            String removedElement = list.remove(index);
+            Assertions.assertEquals(expected, removedElement);
+        };
+        // then
+        Assertions.assertThrows(UnsupportedOperationException.class, executable);
     }
 }
