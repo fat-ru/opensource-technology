@@ -21,7 +21,7 @@
    ![junit5框架](src/main/resources/junit5-framework-architecture.png)
    - Platform
      - 在JVM上启动测试框架（驱动测试引擎/发现单元测试代码）
-     - junit-platform-launcher：提供在Junit平台内发现测试的能力，供IDE（IDEA/Eclipse）、构建工具（Maven/Gradle）等客户端实现
+     - junit-platform-launcher：提供加载engine的能力，提供在Junit平台内发现测试用例的能力，供IDE（IDEA/Eclipse）、构建工具（Maven/Gradle）等客户端实现
         - junit-platform-runner
         - junit-platform-surefire-provider
         - junit-platform-console
