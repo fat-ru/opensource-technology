@@ -22,7 +22,6 @@ public class Junit4MockitoTest {
 
     @Test
     public void testList(){
-        Mockito.when(list.add("Java")).thenReturn(true);
         Mockito.when(list.size()).thenReturn(10);
 
         Assert.assertEquals(10, list.size());

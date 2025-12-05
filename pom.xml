@@ -12,5 +12,6 @@
     <modules>
         <module>junit-learn</module>
         <module>docker-learn</module>
+        <module>jsp</module>
     </modules>
 </project>

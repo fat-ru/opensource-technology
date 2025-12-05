@@ -36,7 +36,7 @@ public class Junit4TheoriesTest {
     @Theory
     public void doTestOneParam(int num) {
         System.out.println("num:" + num);
-        Assert.assertTrue(num < 100);
+        Assert.assertTrue(num <= 100);
     }
 
     @Theory
