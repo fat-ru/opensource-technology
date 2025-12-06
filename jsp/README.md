@@ -26,16 +26,16 @@ JSP一种服务器端动态网页技术
 ## 工作原理
 
 ### 请求-响应流程
-1.请求到达Web服务器（Tomcat）
-2.访问jsp文件时，Web服务器将jsp文件编译为Java Servlet类
-3.执行类，并将类执行的输出结果（HTML）返回给浏览器
+1.请求到达Web服务器（Tomcat）  
+2.访问jsp文件时，Web服务器将jsp文件编译为Java Servlet类  
+3.执行类，并将类执行的输出结果（HTML）返回给浏览器  
 
 ### Servlet
 
 > Servlet: Server Applet
 
-Servlet是Java EE中用于开发动态Web服务的核心组件
-Servlet运行在Servlet容器中 
+Servlet是Java EE中用于开发动态Web服务的核心组件  
+Servlet运行在Servlet容器中  
 
 使用方法：实现HttpServlet类处理HTTP请求，并进行后端处理，生成HTTP响应
 
@@ -48,7 +48,7 @@ Web容器（Tomcat）第一次接收到请求jsp文件的请求，JSP引擎将js
 
 ### 编译
 
-Web容器使用Java编译器（javac）将Java翻译后的Java源文件编译为Java字节码文件
+Web容器使用Java编译器（javac）将Java翻译后的Java源文件编译为Java字节码文件  
 编译后的.class文件的实质是一个Servlet
 
 ### 加载与实例化
@@ -57,7 +57,7 @@ Web容器使用Java编译器（javac）将Java翻译后的Java源文件编译为
 
 ### 执行
 
-容器调用Servlet实例的方法（_jspService）处理请求，该方法通过输出流生成最终的HTML响应。
+容器调用Servlet实例的方法（_jspService）处理请求，该方法通过输出流生成最终的HTML响应。  
 
 **注意**：只有第一次访问jsp文件时，才会对jsp文件进行翻译和编译的步骤，后续的请求会直接使用后容器内的实例进行处理。
 
@@ -441,30 +441,30 @@ IDEA创建临时Tomcat实例，将项目以war模式部署到该实例
 
 - 创建Tomcat运行配置
 
-> Run -> Edit Configurations -> 添加Tomcat Server -> Local配置
+> Run -> Edit Configurations -> 添加Tomcat Server -> Local配置  
 > 配置Tomcat安装路径
 
 - 配置部署Artifact
 
-切换到Deployment页签；
-Add Artifact；
-设置Application context；
+切换到Deployment页签；  
+Add Artifact；  
+设置Application context；  
 
 
 ### 内置服务器运行
 
-基于SpringBoot框架构建Web应用时，不需要单独安装和管理Tomcat，Servlet容器已经被嵌入到应用的主程序。
+基于SpringBoot框架构建Web应用时，不需要单独安装和管理Tomcat，Servlet容器已经被嵌入到应用的主程序。  
 
-Web应用打包为jar包，Tomcat容器已经在jar包内，运行main方法，即可启动Tomcat。
+Web应用打包为jar包，Tomcat容器已经在jar包内，运行main方法，即可启动Tomcat。  
 
 - 添加依赖
 
-> 内置Tomcat服务器
-> spring-boot-starter-web
-> JSTL的依赖
-> javax.servlet:jstl
-> 解析JSP的依赖
-> org.apache.tomcat.embed:tomcat-embed-jasper
+> 内置Tomcat服务器  
+> spring-boot-starter-web  
+> JSTL的依赖  
+> javax.servlet:jstl  
+> 解析JSP的依赖  
+> org.apache.tomcat.embed:tomcat-embed-jasper  
 
 - 配置视图解析器
 
@@ -476,8 +476,8 @@ spring.mvc.view.suffix=.jsp
 
 - 创建JSP
 
-src/main/webapp/WEB-INF目录下创建jsp目录
-jsp目录下创建welcome.jsp文件
+src/main/webapp/WEB-INF目录下创建jsp目录  
+jsp目录下创建welcome.jsp文件  
 
 
 - Controller
@@ -518,22 +518,23 @@ sh /tomcat/bin/startup.sh
 
 ## SpringBoot工程+JSP
 
-### 视图解析原理
+### 视图解析原理  
 
-**核心组件**：InternalResourceViewResolver
+**核心组件**：InternalResourceViewResolver  
+
 **配置注入**：配置文件中配置视图前缀和后缀后，WebMvcAutoConfiguration 会实例化解析器。
-**工作机制**：
 
-> Controller处理请求，业务数据放进视图对象，返回逻辑视图名称
-> 视图解析器根据逻辑视图名称，解析要访问的JSP文件，并转发请求
-> Tomcat容器接收JSP访问请求并唤醒引擎（Jasper）
-> Tomcat引擎：寻找JSP文件->翻译->编译->执行
-> 返回HTML响应流
+**工作机制**：  
+> Controller处理请求，业务数据放进视图对象，返回逻辑视图名称；   
+> 视图解析器根据逻辑视图名称，解析要访问的JSP文件，并转发请求；  
+> Tomcat容器接收JSP访问请求并唤醒引擎（Jasper）；  
+> Tomcat引擎：寻找JSP文件->翻译->编译->执行；  
+> 返回HTML响应流。
 
 ### 编译原理
 
-Spring Boot(spring-boot-starter-web)自带的嵌入式Tomcat只包含Servlet容器的核心功能，无法解析JSP，只能处理静态资源和Servlet。
-Jasper是Tomcat的JSP引擎实现。引入相关依赖后，嵌入式Tomcat才具备解析JSP语法、JSP编译的能力。
+Spring Boot(spring-boot-starter-web)自带的嵌入式Tomcat只包含Servlet容器的核心功能，无法解析JSP，只能处理静态资源和Servlet。   
+Jasper是Tomcat的JSP引擎实现。引入相关依赖后，嵌入式Tomcat才具备解析JSP语法、JSP编译的能力。  
 
 ```xml
 <dependency>
