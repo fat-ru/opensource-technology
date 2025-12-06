@@ -1,0 +1,5 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/  # 视图解析前缀：指向JSP文件的根目录
+      suffix: .jsp           # 视图解析后缀：要添加的文件扩展名

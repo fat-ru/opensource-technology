@@ -1,4 +1,4 @@
-package com.zhuzru.jsp.servlet;
+package com.zhuzru.jsp.traditional.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

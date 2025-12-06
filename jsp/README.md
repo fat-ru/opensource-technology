@@ -1,3 +1,39 @@
+  * [目录](#目录)
+  * [JSP概念](#jsp概念)
+  * [工作原理](#工作原理)
+    * [请求-响应流程](#请求-响应流程)
+    * [Servlet](#servlet)
+  * [JSP文件的处理流程](#jsp文件的处理流程)
+    * [翻译](#翻译)
+    * [编译](#编译)
+    * [加载与实例化](#加载与实例化)
+    * [执行](#执行)
+    * [实例](#实例)
+  * [JSP工程启动](#jsp工程启动)
+    * [IDEA方式启动](#idea方式启动)
+    * [内置服务器运行](#内置服务器运行)
+    * [命令行部署](#命令行部署)
+  * [SpringBoot工程+JSP](#springboot工程jsp)
+    * [视图解析原理](#视图解析原理)
+    * [编译原理](#编译原理)
+    * [构建打包](#构建打包)
+
+## 目录
+
+  * [JSP概念](#jsp概念)
+  * [工作原理](#工作原理)
+    * [请求-响应流程](#请求-响应流程)
+    * [Servlet](#servlet)
+  * [JSP文件的处理流程](#jsp文件的处理流程)
+    * [翻译](#翻译)
+    * [编译](#编译)
+    * [加载与实例化](#加载与实例化)
+    * [执行](#执行)
+    * [实例](#实例)
+  * [JSP工程启动](#jsp工程启动)
+    * [IDEA方式启动](#idea方式启动)
+    * [内置服务器运行](#内置服务器运行)
+    * [命令行部署](#命令行部署)
 
 ## JSP概念
 
@@ -497,3 +533,35 @@ cp xxx.war /tomcat/webapps/
 ## 运行Tomcat
 sh /tomcat/bin/startup.sh
 ```
+
+## SpringBoot工程+JSP
+
+### 视图解析原理
+
+**核心组件**：InternalResourceViewResolver
+**配置注入**：配置文件中配置视图前缀和后缀后，WebMvcAutoConfiguration 会实例化解析器。
+**工作机制**：
+
+> Controller处理请求，业务数据放进视图对象，返回逻辑视图名称
+> 视图解析器根据逻辑视图名称，解析要访问的JSP文件，并转发请求
+> Tomcat容器接收JSP访问请求并唤醒引擎（Jasper）
+> Tomcat引擎：寻找JSP文件->翻译->编译->执行
+> 返回HTML响应流
+
+### 编译原理
+
+Spring Boot(spring-boot-starter-web)自带的嵌入式Tomcat只包含Servlet容器的核心功能，无法解析JSP，只能处理静态资源和Servlet。
+Jasper是Tomcat的JSP引擎实现。引入相关依赖后，嵌入式Tomcat才具备解析JSP语法、JSP编译的能力。
+
+```xml
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <version>9.0.96</version>
+</dependency>
+```
+
+### 构建打包
+
+传统Tomcat部署需要WAR包，默认将src/main/webapp/目录下的所有内容
+
