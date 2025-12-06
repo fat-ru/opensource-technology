@@ -546,5 +546,42 @@ Jasper是Tomcat的JSP引擎实现。引入相关依赖后，嵌入式Tomcat才�
 
 ### 构建打包
 
-传统Tomcat部署需要WAR包，默认将src/main/webapp/目录下的所有内容
+传统Tomcat部署需要WAR包，默认将`src/main/webapp/`目录下的所有内容复制到WAR包的根目录。  
+
+Spring Boot的Maven插件只打包`src/main/resources/`和编译后的字节码文件，默认使用前后端分离或Thymeleaf等现代模板引擎，忽略`src/main/webapp/`目录。  
+因此，需要配置构建插件，将JSP相关文件复制到jar中。  
+
+```xml
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes/META-INF/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+```
 
